@@ -33,7 +33,6 @@ public class RestServlet extends HttpServlet{
         
     
         String pathInfo = req.getPathInfo();
-        
         String[] parts = pathInfo.split("/");
         String param1 = parts[1];
         
@@ -45,7 +44,6 @@ public class RestServlet extends HttpServlet{
         final String jsonDeal = new ObjectMapper().writeValueAsString(deal);
         
         resp.setContentType("text/HTML; charset=UTF-8");
-        
         resp.setStatus(200);
         
         PrintWriter out = resp.getWriter();

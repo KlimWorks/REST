@@ -14,7 +14,7 @@ public class CustomLocalDateSerializer
   extends StdSerializer<LocalDate> {
 
     private static DateTimeFormatter formatter = 
-      DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public CustomLocalDateSerializer() {
         this(null);

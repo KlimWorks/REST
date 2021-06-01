@@ -14,11 +14,11 @@ import utils.CustomLocalDateSerializer;
 
 public class Deal {
     
-    private int id;
     private String name;
     
     @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate date;
     
-    
+    private int id;
+   
 }
