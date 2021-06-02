@@ -8,24 +8,25 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h2>Записи сделок</h2>
+        <h2>Информация о сделках</h2>
         
         <c:forEach var = "deal" items = "${requestScope.deals}">
             
             <ul>
-                Идентификатор сделки:  <c:out value="${deal.id}"/>
+                 
+                Имя агента: <c:out value="${deal.name}"/>,
+                Дата: <c:out value="${deal.date}"/>,
+                Номер сделки: <c:out value="${deal.id}"/>
                 
             </ul>
             
         </c:forEach>
         
         
-        <h2>Получить информацию о сделке в json-формате</h2>
+        <h2>Получить список сделок в json-формате</h2>
         
         <form method="GET" action="<c:url value='/getjson'/>">
             
-            <label> ID сделки <input type="number" name="id"></label><br>
-            <br>
             <label> Имя агента <input type="text" name="name"></label><br>
             <br>
             <label> Начало периода <input type="date" name="start_date"></label><br>
