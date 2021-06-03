@@ -8,13 +8,14 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 public class CustomLocalDateSerializer 
   extends StdSerializer<LocalDate> {
 
     private static DateTimeFormatter formatter = 
-      DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US);
 
     public CustomLocalDateSerializer() {
         this(null);

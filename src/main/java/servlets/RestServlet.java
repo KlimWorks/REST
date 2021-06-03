@@ -2,51 +2,66 @@
 package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Table;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Deal;
+
 
 @WebServlet(urlPatterns = "/deals/*")
 public class RestServlet extends HttpServlet{
     
-    private Map <Integer, Deal> deals;
+    private Table<String, LocalDate, Integer> dealsTable;
     
     
     @Override
     public void init() throws ServletException {
         
-        final Object deal = getServletContext().getAttribute("deals");
-        this.deals = (ConcurrentHashMap<Integer, Deal>) deal;
+        final Object dealTable = getServletContext().getAttribute("dealsTable");
+        this.dealsTable = (Table<String, LocalDate, Integer>) dealTable;
         
     }
-
     
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
     
-        String pathInfo = req.getPathInfo();
+        String pathInfo = request.getPathInfo();
         String[] parts = pathInfo.split("/");
+        
         String param1 = parts[1];
+        String param2 = parts[2];
+        String param3 = parts[3];
         
-        int dealId = Integer.parseInt(param1);
+        final String name = param1;
+        LocalDate startDate = LocalDate.parse(param2, DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US));
+        final LocalDate endDate = LocalDate.parse(param3, DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US));
         
-        req.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
-        final Deal deal = deals.get(dealId);
-        final String jsonDeal = new ObjectMapper().writeValueAsString(deal);
+        ArrayList<Integer> anotherJsonDeal = new ArrayList<>();
         
-        resp.setContentType("text/HTML; charset=UTF-8");
-        resp.setStatus(200);
+        while(endDate.isAfter(startDate)){
+            if(dealsTable.get(name, startDate) != null){
+            anotherJsonDeal.add(dealsTable.get(name, startDate));
+            }
+            startDate = startDate.plusDays(1);
+        }      
         
-        PrintWriter out = resp.getWriter();
+        final String jsonDeal = new ObjectMapper().writeValueAsString(anotherJsonDeal);
+        
+        response.setContentType("text/HTML; charset=UTF-8");
+        response.setStatus(200);
+        
+        PrintWriter out = response.getWriter();
         out.write(jsonDeal);
     
 }

@@ -44,8 +44,11 @@ public class JsonConvertServlet extends HttpServlet{
         ArrayList<Integer> anotherJsonDeal = new ArrayList<>();
         
         while(endDate.isAfter(startDate)){
+            if(dealsTable.get(name, startDate) != null){
             anotherJsonDeal.add(dealsTable.get(name, startDate));
+            }
             startDate = startDate.plusDays(1);
+        
         }
                                
         final String jsonDeal = new ObjectMapper().writeValueAsString(anotherJsonDeal);
