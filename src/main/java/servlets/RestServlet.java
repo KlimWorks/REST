@@ -1,3 +1,7 @@
+/*
+Данный сервлет получает информацию об имени клиента и периоде сделок, но уже в формате 
+GET-запроса из адресной строки и реализует REST-подход
+*/
 
 package servlets;
 
@@ -24,15 +28,17 @@ public class RestServlet extends HttpServlet{
     @Override
     public void init() throws ServletException {
         
+        //Получение данных из контекста и передача их в структуру dealsTable
         final Object dealTable = getServletContext().getAttribute("dealsTable");
         this.dealsTable = (Table<String, LocalDate, Integer>) dealTable;
         
     }
+
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-    
+        //Получение адреса и параметров запроса
         String pathInfo = request.getPathInfo();
         String[] parts = pathInfo.split("/");
         

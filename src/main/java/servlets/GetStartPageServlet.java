@@ -1,3 +1,10 @@
+/*
+Данный класс является сервлетом, который выполняется первым при запуске приложения,
+о чем говорит аннотация @WebServlet и маппинг в корневую директорию (urlPatterns = "/").
+Сервлет получает данные из контекста в методе init и выводит страницу StartPage.jsp
+в методе doGet
+*/
+
 
 package servlets;
 
@@ -15,7 +22,6 @@ import model.Deal;
 public class GetStartPageServlet extends HttpServlet {
     
     private Map <Integer, Deal> deals;
-
     
     @Override
     public void init() throws ServletException{
