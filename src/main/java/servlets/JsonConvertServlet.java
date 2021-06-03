@@ -8,14 +8,11 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import static java.time.LocalDate.parse;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Deal;
 
 @WebServlet(urlPatterns = "/getjson")
 public class JsonConvertServlet extends HttpServlet{

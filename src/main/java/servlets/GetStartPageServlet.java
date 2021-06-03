@@ -21,11 +21,9 @@ public class GetStartPageServlet extends HttpServlet {
     public void init() throws ServletException{
         
          final Object deals = getServletContext().getAttribute("deals");  
-         
          this.deals = (ConcurrentHashMap<Integer, Deal>) deals;
     }
-    
-    
+        
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

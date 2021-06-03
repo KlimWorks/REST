@@ -21,7 +21,6 @@ public class RestServlet extends HttpServlet{
     
     private Table<String, LocalDate, Integer> dealsTable;
     
-    
     @Override
     public void init() throws ServletException {
         
@@ -58,8 +57,7 @@ public class RestServlet extends HttpServlet{
         
         final String jsonDeal = new ObjectMapper().writeValueAsString(anotherJsonDeal);
         
-        response.setContentType("text/HTML; charset=UTF-8");
-        response.setStatus(200);
+        response.setContentType("application/json; charset = UTF-8");
         
         PrintWriter out = response.getWriter();
         out.write(jsonDeal);
